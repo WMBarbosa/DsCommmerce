@@ -3,13 +3,10 @@ package com.barbosa.dscommerse.mappers;
 import com.barbosa.dscommerse.dtos.UserDTO;
 import com.barbosa.dscommerse.entities.Role;
 import com.barbosa.dscommerse.entities.User;
-import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
-import org.springframework.security.core.GrantedAuthority;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 

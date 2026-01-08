@@ -1,20 +1,32 @@
 package com.barbosa.dscommerse.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "tb_user")
-public class User implements Serializable {
+@Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@AllArgsConstructor
+@NoArgsConstructor
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
     @Serial
@@ -34,78 +46,48 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "client")
     private List<Order> orders = new ArrayList<>();
 
-    public User() {
+    @ManyToMany
+    @JoinTable(name = "tb_user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles = new ArrayList<>();
+
+    public void addRoles(Role role){
+        roles.add(role);
     }
 
-    public User(Long id, String name, String email, String phone, LocalDate birthDate, String password){
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.phone = phone;
-        this.birthDate = birthDate;
-        this.password = password;
+    public boolean hasRole(String roleName) {
+        return roles.stream()
+                .anyMatch(role -> role.getAuthority().equals(roleName));
     }
 
-    public Long getId() {
-        return id;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
+    @Override
+    public String getUsername() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public List<Order> getOrders() {
-        return orders;
+    @Override
+    public boolean isAccountNonExpired() {
+        return UserDetails.super.isAccountNonExpired();
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof User user)) return false;
-        return Objects.equals(getId(), user.getId());
+    public boolean isAccountNonLocked() {
+        return UserDetails.super.isAccountNonLocked();
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
+    public boolean isCredentialsNonExpired() {
+        return UserDetails.super.isCredentialsNonExpired();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return UserDetails.super.isEnabled();
     }
 }

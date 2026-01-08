@@ -1,23 +1,35 @@
 package com.barbosa.dscommerse.service;
 
+import com.barbosa.dscommerse.config.customgrant.CustomPasswordAuthenticationToken;
+import com.barbosa.dscommerse.dtos.UserDTO;
 import com.barbosa.dscommerse.dtos.UserDetailsDTO;
 import com.barbosa.dscommerse.entities.Role;
 import com.barbosa.dscommerse.entities.User;
+import com.barbosa.dscommerse.mappers.UserMapper;
 import com.barbosa.dscommerse.repositories.UserRepository;
+import com.barbosa.dscommerse.service.serviceException.ResourceNotFoundException;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserService implements UserDetailsService {
 
-	private UserRepository repository;
+    private final UserRepository repository;
+    private final UserMapper mapper;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -36,4 +48,42 @@ public class UserService implements UserDetailsService {
 		
 		return user;
 	}
+
+    protected User authenticate() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new SecurityException("Usuário não autenticado");
+        }
+
+        Object principal = authentication.getPrincipal();
+
+        String username = switch (principal) {
+            case Jwt jwt -> jwt.getClaimAsString("username");
+            case UserDetails userDetails -> userDetails.getUsername();
+            case String str -> str;
+            case null, default -> throw new IllegalStateException("Tipo de principal não suportado");
+        };
+
+        return repository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Email not found"));
+    }
+
+    @Transactional(readOnly = true)
+    public UserDTO getMe(){
+        User user = authenticate();
+        return mapper.toDto(user);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<UserDTO> findAll(Pageable pageable){
+        return repository.findAll(pageable)
+                .map(mapper::toDto);
+    }
+
+    public UserDTO findById(Long id) {
+        return repository.findById(id)
+                .map(mapper::toDto)
+                .orElseThrow(() -> new ResourceNotFoundException(id));
+    }
 }

@@ -29,9 +29,6 @@ public class User implements UserDetails {
     @EqualsAndHashCode.Include
     private Long id;
 
-    @Serial
-    private static final long serialVersionUID = 1L;
-
     private String name;
 
     @Column(unique = true)

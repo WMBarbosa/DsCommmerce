@@ -6,9 +6,15 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProductDTO {
 
     private Long id;
@@ -26,38 +32,9 @@ public class ProductDTO {
 
     private String imgUrl;
 
-    public ProductDTO() {
-    }
-
-    public ProductDTO(Long id, String name, String description, Double price, String imgUrl) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.imgUrl = imgUrl;
-    }
-
     public Long getId() {
         return id;
     }
-
-    public ProductDTO(Product entity){
-        id = entity.getId();
-        name = entity.getName();
-        description = entity.getDescription();
-        price = entity.getPrice();
-        imgUrl = entity.getImageUrl();
-    }
-
-    public Product toEntity() {
-        Product product = new Product();
-        product.setName(this.name);
-        product.setDescription(this.description);
-        product.setPrice(this.price);
-        product.setImageUrl(this.imgUrl);
-        return product;
-    }
-
 
     public String getName() {
         return name;

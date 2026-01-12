@@ -1,6 +1,7 @@
 package com.barbosa.dscommerse.controllers;
 
 import com.barbosa.dscommerse.dtos.ProductDTO;
+import com.barbosa.dscommerse.dtos.ProductMinDTO;
 import com.barbosa.dscommerse.entities.Product;
 import com.barbosa.dscommerse.service.ProductService;
 import jakarta.validation.Valid;
@@ -24,15 +25,13 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENT')")
-    public ResponseEntity<Page<ProductDTO>> findAll(
+    public ResponseEntity<Page<ProductMinDTO>> findAll(
             @RequestParam (name = "name", defaultValue = "") String name, Pageable pageable) {
-        Page<ProductDTO> dtoList = productService.findAll(name, pageable);
+        Page<ProductMinDTO> dtoList = productService.findAll(name, pageable);
         return ResponseEntity.ok().body(dtoList);
     }
 
     @GetMapping(value = "/{id}")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENT')")
     public ResponseEntity<ProductDTO> findById (@PathVariable Long id) {
         ProductDTO productDTO = productService.findById(id);
         return ResponseEntity.ok().body(productDTO);

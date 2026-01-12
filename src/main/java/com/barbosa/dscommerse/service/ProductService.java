@@ -1,6 +1,7 @@
 package com.barbosa.dscommerse.service;
 
 import com.barbosa.dscommerse.dtos.ProductDTO;
+import com.barbosa.dscommerse.dtos.ProductMinDTO;
 import com.barbosa.dscommerse.entities.Product;
 import com.barbosa.dscommerse.mappers.ProductMapper;
 import com.barbosa.dscommerse.repositories.ProductsRepository;
@@ -30,9 +31,9 @@ public class ProductService {
     private final ProductsRepository productsRepository;
 
     @Transactional(readOnly = true)
-    public Page<ProductDTO> findAll(String name, Pageable pageable) {
+    public Page<ProductMinDTO> findAll(String name, Pageable pageable) {
         Page<Product> products = productsRepository.searchByName(name, pageable);
-        return products.map(productsMapper::toDto);
+        return products.map(productsMapper::toDtoMin);
     }
 
     @Transactional(readOnly = true)

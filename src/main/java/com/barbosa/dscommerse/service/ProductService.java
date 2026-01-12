@@ -1,27 +1,23 @@
 package com.barbosa.dscommerse.service;
 
+import com.barbosa.dscommerse.dtos.CategoryDTO;
 import com.barbosa.dscommerse.dtos.ProductDTO;
 import com.barbosa.dscommerse.dtos.ProductMinDTO;
+import com.barbosa.dscommerse.entities.Category;
 import com.barbosa.dscommerse.entities.Product;
 import com.barbosa.dscommerse.mappers.ProductMapper;
+import com.barbosa.dscommerse.repositories.CategoryRepository;
 import com.barbosa.dscommerse.repositories.ProductsRepository;
 import com.barbosa.dscommerse.service.serviceException.DatabaseException;
 import com.barbosa.dscommerse.service.serviceException.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.ResourceAccessException;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.StreamSupport;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +25,8 @@ public class ProductService {
 
     private final ProductMapper productsMapper;
     private final ProductsRepository productsRepository;
+    private final CategoryRepository categoryRepository;
+
 
     @Transactional(readOnly = true)
     public Page<ProductMinDTO> findAll(String name, Pageable pageable) {
@@ -45,7 +43,7 @@ public class ProductService {
 
     @Transactional
     public ProductDTO create(ProductDTO productDTO) {
-        Product product = productsMapper.toEntity(productDTO);
+        Product product = productsMapper.toEntity(productDTO, categoryRepository);
         product = productsRepository.save(product);
         return productsMapper.toDto(product);
     }
@@ -67,16 +65,7 @@ public class ProductService {
     public ProductDTO update(Long id, ProductDTO productDTO) {
         Product product = productsRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(id));
-        updateData(product, productDTO);
+        productsMapper.updateEntityFromDto(productDTO, product, categoryRepository);
         return productsMapper.toDto(productsRepository.save(product));
     }
-
-
-    public void updateData(Product product,ProductDTO productDTO) {
-        product.setName(productDTO.getName());
-        product.setDescription(productDTO.getDescription());
-        product.setPrice(productDTO.getPrice());
-        product.setImageUrl(productDTO.getImgUrl());
-    }
-
 }

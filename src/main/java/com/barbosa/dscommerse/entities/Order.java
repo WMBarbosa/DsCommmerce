@@ -7,13 +7,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "tb_order")
@@ -40,11 +36,22 @@ public class Order {
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     private Payment payment;
 
-    @OneToMany(mappedBy = "id.order")
-    private Set<OrderItem> items = new HashSet<>();
+    @OneToMany(mappedBy = "id.order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("id.product ASC")
+    private List<OrderItem> items = new ArrayList<>();
 
     public List<Product> getProducts () {
-    return items.stream().map(OrderItem::getProduct).toList();
+        return items.stream().map(OrderItem::getProduct).toList();
+    }
+
+    public void addItem(Product product, Integer quantity) {
+        items.stream()
+                .filter(i -> i.getProduct().equals(product))
+                .findFirst()
+                .ifPresentOrElse(
+                        i -> i.increaseQuantity(quantity),
+                        () -> items.add(new OrderItem(this, product, quantity, product.getPrice()))
+                );
     }
 
 }

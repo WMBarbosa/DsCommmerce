@@ -3,17 +3,17 @@ package com.barbosa.dscommerse.entities;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.UniqueConstraint;
+import lombok.*;
 
 @Entity
-@Table(name = "tb_order_item")
-@Data
+@Table(name = "tb_order_item", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"order_id", "product_id" })
+})
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
 public class OrderItem {
 
     @EmbeddedId
@@ -22,7 +22,14 @@ public class OrderItem {
     private Integer quantity;
     private Double price;
 
-   public Order getOrder() {
+    public OrderItem(Order order, Product product, Integer quantity, Double price) {
+        id.setOrder(order);
+        id.setProduct(product);
+        this.quantity = quantity;
+        this.price = price;
+    }
+
+    public Order getOrder() {
         return id.getOrder();
     }
 
@@ -39,6 +46,17 @@ public class OrderItem {
     }
 
     public Double getSubTotal() {
+        if (price == null || quantity == null) {
+            return 0.0;
+        }
         return price * quantity;
     }
+
+    public void increaseQuantity(Integer amount) {
+        if (amount == null || amount <= 0) {
+            return;
+        }
+        this.quantity += amount;
+    }
+
 }

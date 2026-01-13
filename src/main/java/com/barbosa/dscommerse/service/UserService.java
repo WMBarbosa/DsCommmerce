@@ -1,6 +1,5 @@
 package com.barbosa.dscommerse.service;
 
-import com.barbosa.dscommerse.config.customgrant.CustomPasswordAuthenticationToken;
 import com.barbosa.dscommerse.dtos.UserDTO;
 import com.barbosa.dscommerse.dtos.UserDetailsDTO;
 import com.barbosa.dscommerse.entities.Role;
@@ -8,9 +7,7 @@ import com.barbosa.dscommerse.entities.User;
 import com.barbosa.dscommerse.mappers.UserMapper;
 import com.barbosa.dscommerse.repositories.UserRepository;
 import com.barbosa.dscommerse.service.serviceException.ResourceNotFoundException;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
@@ -42,9 +39,9 @@ public class UserService implements UserDetailsService {
 		User user = new User();
 		user.setEmail(result.getFirst().username());
 		user.setPassword(result.getFirst().password());
-		for (UserDetailsDTO userDetailsDTO : result) {
-			user.addRoles(new Role(userDetailsDTO.roleId(), userDetailsDTO.authority()));
-		}
+        result.stream()
+                .map(dto -> new Role(dto.roleId(), dto.authority()))
+                .forEach(user::addRoles);
 		
 		return user;
 	}

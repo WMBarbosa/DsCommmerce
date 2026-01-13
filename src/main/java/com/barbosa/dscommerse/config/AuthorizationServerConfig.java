@@ -1,8 +1,8 @@
 package com.barbosa.dscommerse.config;
 
-import com.barbosa.dscommerse.config.customgrant.CustomUserAuthorities;
 import com.barbosa.dscommerse.config.customgrant.CustomPasswordAuthenticationConverter;
 import com.barbosa.dscommerse.config.customgrant.CustomPasswordAuthenticationProvider;
+import com.barbosa.dscommerse.config.customgrant.CustomUserAuthorities;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.JWKSource;

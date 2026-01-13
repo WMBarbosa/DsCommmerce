@@ -1,20 +1,13 @@
 package com.barbosa.dscommerse.controllers;
 
-import com.barbosa.dscommerse.dtos.ProductDTO;
 import com.barbosa.dscommerse.dtos.UserDTO;
-import com.barbosa.dscommerse.entities.User;
-import com.barbosa.dscommerse.service.ProductService;
 import com.barbosa.dscommerse.service.UserService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import java.net.URI;
 
 @RestController
 @RequestMapping(value = "/users")

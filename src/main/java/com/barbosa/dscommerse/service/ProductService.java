@@ -1,9 +1,7 @@
 package com.barbosa.dscommerse.service;
 
-import com.barbosa.dscommerse.dtos.CategoryDTO;
 import com.barbosa.dscommerse.dtos.ProductDTO;
 import com.barbosa.dscommerse.dtos.ProductMinDTO;
-import com.barbosa.dscommerse.entities.Category;
 import com.barbosa.dscommerse.entities.Product;
 import com.barbosa.dscommerse.mappers.ProductMapper;
 import com.barbosa.dscommerse.repositories.CategoryRepository;

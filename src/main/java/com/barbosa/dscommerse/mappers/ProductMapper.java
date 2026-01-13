@@ -1,11 +1,14 @@
 package com.barbosa.dscommerse.mappers;
 
+import com.barbosa.dscommerse.dtos.CategoryDTO;
 import com.barbosa.dscommerse.dtos.ProductDTO;
 import com.barbosa.dscommerse.dtos.ProductMinDTO;
 import com.barbosa.dscommerse.entities.Category;
 import com.barbosa.dscommerse.entities.Product;
 import com.barbosa.dscommerse.repositories.CategoryRepository;
 import org.mapstruct.*;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring", uses = CategoryMapper.class)
 public interface ProductMapper {
@@ -31,9 +34,17 @@ public interface ProductMapper {
             @Context CategoryRepository categoryRepository) {
         entity.getCategory().clear();
 
-        dto.getCategories().forEach(catDto -> {
-            Category category = categoryRepository.getReferenceById(catDto.getId());
-            entity.getCategory().add(category);
-        });
+        List<Long> ids = dto.getCategories()
+                .stream()
+                .map(CategoryDTO::getId)
+                .toList();
+
+        List<Category> categories = categoryRepository.findAllById(ids);
+
+        if (categories.size() != ids.size()) {
+            throw new IllegalArgumentException("Uma ou mais categorias não existem");
+        }
+
+        entity.getCategory().addAll(categories);
     }
 }

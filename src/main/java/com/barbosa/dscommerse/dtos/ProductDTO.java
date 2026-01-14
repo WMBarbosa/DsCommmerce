@@ -29,6 +29,7 @@ public class ProductDTO {
     private String description;
 
     @Positive(message = "Price must be positive")
+    @NotNull(message = "Price is required")
     private Double price;
 
     private String imgUrl;

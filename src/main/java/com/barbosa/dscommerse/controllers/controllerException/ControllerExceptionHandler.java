@@ -2,6 +2,7 @@ package com.barbosa.dscommerse.controllers.controllerException;
 
 import com.barbosa.dscommerse.dtos.exceptionsDto.ValidationError;
 import com.barbosa.dscommerse.service.serviceException.DatabaseException;
+import com.barbosa.dscommerse.service.serviceException.ForbiddenException;
 import com.barbosa.dscommerse.service.serviceException.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -37,6 +38,13 @@ public class ControllerExceptionHandler {
         for (FieldError error : e.getBindingResult().getFieldErrors()) {
             err.addError(error.getField(), error.getDefaultMessage());
         }
+        return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(ForbiddenException.class)
+    public ResponseEntity<CustomError> forbidden (ForbiddenException e, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.FORBIDDEN;
+        CustomError err = new CustomError(Instant.now(), status.value(), e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(status).body(err);
     }
 }

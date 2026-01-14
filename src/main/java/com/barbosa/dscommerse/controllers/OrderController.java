@@ -5,6 +5,7 @@ import com.barbosa.dscommerse.service.OrderService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -18,12 +19,14 @@ public class OrderController {
 
     private final OrderService orderService;
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENT')")
     @GetMapping(value = "/{id}")
     public ResponseEntity<OrderDTO> findById (@PathVariable Long id) {
         OrderDTO OrderDTO = orderService.findById(id);
         return ResponseEntity.ok().body(OrderDTO);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_CLIENT')")
     @PostMapping
     public ResponseEntity<OrderDTO> insert(@Valid @RequestBody OrderDTO OrderDTO) {
         OrderDTO createdOrder = orderService.insert(OrderDTO);

@@ -30,17 +30,17 @@ public class OrderService {
     private final UserService userService;
     private final ProductsRepository productsRepository;
     private final OrderItemRepository orderItemRepository;
+    private final AuthService authService;
 
     @Transactional(readOnly = true)
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public OrderDTO findById(Long id) {
          Order order = orderRepository.findByIdWithItemsAndProducts(id)
                 .orElseThrow(() -> new ResourceNotFoundException(id));
+         authService.validateSelfOrAdmin(order.getClient().getId());
         return orderMapper.toDto(order);
     }
 
     @Transactional
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENT')")
     public OrderDTO insert(OrderDTO orderDTO) {
         Order order = new Order();
         order.setMoment(Instant.now());

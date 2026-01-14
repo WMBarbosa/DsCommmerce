@@ -5,6 +5,7 @@ import com.barbosa.dscommerse.dtos.ProductMinDTO;
 import com.barbosa.dscommerse.entities.Product;
 import com.barbosa.dscommerse.service.ProductService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,10 +20,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/products")
+@RequiredArgsConstructor
 public class ProductController {
 
-    @Autowired
-    private ProductService productService;
+    private final ProductService productService;
 
     @GetMapping
     public ResponseEntity<Page<ProductMinDTO>> findAll(

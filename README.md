@@ -1,25 +1,42 @@
-API REST de e-commerce desenvolvida em Java com Spring Boot, com foco em boas práticas de desenvolvimento, arquitetura em camadas e implementação de CRUD de produtos, categorias, pedidos e autenticação de usuários.
-Este projeto foi iniciado como parte de estudos e continuará evoluindo com novas funcionalidades e melhorias contínuas.
+🛒 API REST de E-commerce
 
-📌 Visão Geral
+Este repositório tem como objetivo servir como um ambiente de estudo, prática e consolidação de conhecimentos em desenvolvimento backend, utilizando Java e Spring Boot, com foco na construção de uma API REST para e-commerce.
 
-O DSCommerce é um back-end para um e-commerce simples que permite:
+O projeto aborda conceitos fundamentais e avançados de desenvolvimento de software, aplicando boas práticas, arquitetura em camadas e padrões utilizados no mercado, além de evoluir continuamente com novas funcionalidades.
 
-Gerenciar produtos
+🎯 Objetivo do Repositório
 
-Gerenciar categorias
+Consolidar o aprendizado em desenvolvimento backend com Java
 
-Realizar pedidos
+Aplicar Spring Boot e Spring Data JPA em um projeto real
+
+Praticar a criação de APIs REST bem estruturadas
+
+Trabalhar conceitos de autenticação, autorização e segurança
+
+Evoluir o projeto de forma incremental, do básico ao avançado
+
+Este repositório será constantemente evoluído, recebendo novas implementações, melhorias de arquitetura e refinamentos técnicos.
+
+🧩 Visão Geral do Projeto
+
+O DSCommerce é um back-end de e-commerce que permite:
+
+Gerenciamento de produtos
+
+Gerenciamento de categorias
+
+Criação e consulta de pedidos
 
 Cadastro e autenticação de usuários
 
-Controle de autorização (ex.: operações restritas a administradores)
+Controle de autorização baseado em perfis (ex.: usuário e administrador)
 
-O projeto serve como base prática para estudo e aplicação de Spring Boot, Spring Data JPA, Java 17+ e padrões de APIs REST.
+O projeto serve como base prática para estudo de Java 17+, Spring Boot, Spring Data JPA e padrões de APIs REST.
 
 🗂️ Estrutura do Projeto
 
-O projeto segue a estrutura padrão de aplicações Spring Boot, organizada em camadas:
+O projeto segue a estrutura padrão do ecossistema Spring Boot, organizada em camadas:
 
 ├── src
 │   ├── main
@@ -33,73 +50,85 @@ O projeto segue a estrutura padrão de aplicações Spring Boot, organizada em c
 │   │   │       └── config        # Configurações (segurança, CORS, etc.)
 │   │   └── resources
 │   │       └── application.properties
-├── .gitignore
-├── mvnw / mvnw.cmd
 ├── pom.xml
+├── mvnw / mvnw.cmd
 └── README.md
 
 
-💡 Essa estrutura modularizada facilita a manutenção, testes e escalabilidade do projeto.
+💡 Essa organização facilita a manutenção, legibilidade e escalabilidade do projeto.
 
-🚀 Funcionalidades Atuais
-✔️ Produtos
+🚀 Funcionalidades Implementadas
+🔹 Produtos
 
-Listar todos os produtos
+Listagem de produtos
 
-Obter produto por ID
+Busca de produto por ID
 
-Criar, atualizar e excluir produtos
+Criação, atualização e exclusão
 
-✔️ Categorias
+🔹 Categorias
 
-Listar categorias
+Listagem de categorias
 
-Criar nova categoria
+Cadastro de novas categorias
 
-Listar produtos por categoria
+Consulta de produtos por categoria
 
-✔️ Usuários & Autenticação
+🔹 Usuários & Autenticação
 
-Registro de usuários
+Cadastro de usuários
 
-Login com retorno de token JWT
+Autenticação com JWT
 
-Autorização de rotas privadas conforme o perfil do usuário
+Proteção de rotas privadas
 
-✔️ Pedidos
+Controle de permissões por perfil
 
-Criar pedidos
+🔹 Pedidos
 
-Buscar pedido por ID (restrito ao usuário autenticado)
+Criação de pedidos
 
-⚠️ Algumas funcionalidades ainda podem estar em desenvolvimento ou sofrer alterações. Consulte os endpoints diretamente no código para mais detalhes.
+Consulta de pedidos por ID (restrita ao usuário autenticado)
 
-🛠️ Tecnologias Utilizadas
-Camada	Tecnologia
-Linguagem	Java
-Framework	Spring Boot 3
-Persistência	Spring Data JPA
-Banco de Dados	H2 (em memória)
-Segurança	Spring Security + JWT
-Build	Maven
-📦 Pré-requisitos
+⚠️ Algumas funcionalidades ainda podem estar em desenvolvimento ou sujeitas a ajustes conforme a evolução do projeto.
 
-Antes de executar o projeto, é necessário ter instalado:
+🛠️ Tecnologias e Ferramentas
+
+O projeto utiliza as seguintes tecnologias:
+
+Java 17+
+
+Spring Boot 3
+
+Spring Data JPA
+
+Spring Security
+
+JWT (JSON Web Token)
+
+Banco de dados H2 (em memória)
+
+Maven
+
+Além disso, conceitos de boas práticas, separação de responsabilidades e arquitetura em camadas são aplicados em todo o projeto.
+
+▶️ Executando o Projeto
+Pré-requisitos
 
 JDK 17 ou superior
 
-Maven (opcional, pois o projeto utiliza Maven Wrapper)
+Maven (opcional — o projeto utiliza Maven Wrapper)
 
-Uma IDE como IntelliJ IDEA, Eclipse ou VS Code
+IDE de sua preferência (IntelliJ, Eclipse ou VS Code)
 
-▶️ Como Executar o Projeto
+Passos
 
 Clone o repositório:
 
 git clone https://github.com/WMBarbosa/DsCommmerce.git
 
 
-Acesse a pasta do projeto:
+Acesse o diretório do projeto:
 
 cd DsCommmerce
 
@@ -114,7 +143,7 @@ Ou utilizando o Maven Wrapper:
 ./mvnw spring-boot:run
 
 
-A API estará disponível em:
+A aplicação estará disponível em:
 
 http://localhost:8080
 
@@ -124,12 +153,22 @@ GET	/products	Lista todos os produtos
 GET	/products/{id}	Retorna produto por ID
 POST	/products	Cria um novo produto
 GET	/categories	Lista categorias
-POST	/users/signup	Registro de usuário
+POST	/users/signup	Cadastro de usuário
 POST	/login	Autenticação e geração de token
 
-Os endpoints podem ser alterados ou expandidos conforme a evolução do projeto.
+Os endpoints podem sofrer alterações conforme novas implementações forem adicionadas.
 
-🚧 Status do Projeto
+📈 Evolução Contínua
 
-🔄 Projeto em desenvolvimento ativo.
-Novas funcionalidades, melhorias de arquitetura, testes automatizados e ajustes de segurança ainda estão sendo implementados como parte do processo contínuo de aprendizado e evolução técnica.
+Este repositório não representa um projeto finalizado, mas sim um projeto em constante evolução.
+
+Novas funcionalidades, melhorias de segurança, ajustes de arquitetura, testes automatizados e boas práticas adicionais ainda estão sendo implementados ao longo do tempo.
+
+🤝 Contribuições
+
+Sugestões, melhorias e feedbacks são sempre bem-vindos!
+Este repositório também pode servir como referência para outros desenvolvedores que estejam estudando backend com Java e Spring.
+
+📌 Observação Final
+
+Todo o conteúdo deste repositório possui finalidade educacional, com foco no desenvolvimento técnico e profissional em backend e arquitetura de APIs REST.

@@ -12,7 +12,7 @@ Aqui são explorados conceitos, técnicas, boas práticas e padrões amplamente 
 * Aplicar conceitos de **arquitetura em camadas**
 * Desenvolver **APIs REST seguindo boas práticas**
 * Praticar **CRUD de entidades reais de um e-commerce**
-* Implementar **autenticação e autorização com JWT**
+* Implementar autenticação e autorização utilizando **OAuth2 (Resource Server) com JWT**
 * Evoluir o projeto de forma incremental, do básico ao avançado
 
 Este repositório será **constantemente evoluído** com novas implementações, melhorias de código e aprimoramentos técnicos.

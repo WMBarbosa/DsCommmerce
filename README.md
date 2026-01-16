@@ -1,10 +1,10 @@
-🛒 API REST de E-commerce
+#🛒 API REST de E-commerce
 
 Este repositório tem como objetivo servir como um ambiente de estudo, prática e consolidação de conhecimentos em desenvolvimento backend, utilizando Java e Spring Boot, com foco na construção de uma API REST para e-commerce.
 
 O projeto aborda conceitos fundamentais e avançados de desenvolvimento de software, aplicando boas práticas, arquitetura em camadas e padrões utilizados no mercado, além de evoluir continuamente com novas funcionalidades.
 
-🎯 Objetivo do Repositório
+##🎯 Objetivo do Repositório
 
 Consolidar o aprendizado em desenvolvimento backend com Java
 
@@ -18,7 +18,7 @@ Evoluir o projeto de forma incremental, do básico ao avançado
 
 Este repositório será constantemente evoluído, recebendo novas implementações, melhorias de arquitetura e refinamentos técnicos.
 
-🧩 Visão Geral do Projeto
+###🧩 Visão Geral do Projeto
 
 O DSCommerce é um back-end de e-commerce que permite:
 
@@ -34,7 +34,7 @@ Controle de autorização baseado em perfis (ex.: usuário e administrador)
 
 O projeto serve como base prática para estudo de Java 17+, Spring Boot, Spring Data JPA e padrões de APIs REST.
 
-🗂️ Estrutura do Projeto
+##🗂️ Estrutura do Projeto
 
 O projeto segue a estrutura padrão do ecossistema Spring Boot, organizada em camadas:
 
@@ -57,7 +57,7 @@ O projeto segue a estrutura padrão do ecossistema Spring Boot, organizada em ca
 
 💡 Essa organização facilita a manutenção, legibilidade e escalabilidade do projeto.
 
-🚀 Funcionalidades Implementadas
+##🚀 Funcionalidades Implementadas
 🔹 Produtos
 
 Listagem de produtos
@@ -90,9 +90,9 @@ Criação de pedidos
 
 Consulta de pedidos por ID (restrita ao usuário autenticado)
 
-⚠️ Algumas funcionalidades ainda podem estar em desenvolvimento ou sujeitas a ajustes conforme a evolução do projeto.
+##⚠️ Algumas funcionalidades ainda podem estar em desenvolvimento ou sujeitas a ajustes conforme a evolução do projeto.
 
-🛠️ Tecnologias e Ferramentas
+##🛠️ Tecnologias e Ferramentas
 
 O projeto utiliza as seguintes tecnologias:
 
@@ -112,7 +112,7 @@ Maven
 
 Além disso, conceitos de boas práticas, separação de responsabilidades e arquitetura em camadas são aplicados em todo o projeto.
 
-▶️ Executando o Projeto
+##▶️ Executando o Projeto
 Pré-requisitos
 
 JDK 17 ou superior
@@ -147,7 +147,7 @@ A aplicação estará disponível em:
 
 http://localhost:8080
 
-📘 Endpoints Principais
+##📘 Endpoints Principais
 Método	Endpoint	Descrição
 GET	/products	Lista todos os produtos
 GET	/products/{id}	Retorna produto por ID
@@ -158,17 +158,17 @@ POST	/login	Autenticação e geração de token
 
 Os endpoints podem sofrer alterações conforme novas implementações forem adicionadas.
 
-📈 Evolução Contínua
+##📈 Evolução Contínua
 
 Este repositório não representa um projeto finalizado, mas sim um projeto em constante evolução.
 
 Novas funcionalidades, melhorias de segurança, ajustes de arquitetura, testes automatizados e boas práticas adicionais ainda estão sendo implementados ao longo do tempo.
 
-🤝 Contribuições
+##🤝 Contribuições
 
 Sugestões, melhorias e feedbacks são sempre bem-vindos!
 Este repositório também pode servir como referência para outros desenvolvedores que estejam estudando backend com Java e Spring.
 
-📌 Observação Final
+##📌 Observação Final
 
 Todo o conteúdo deste repositório possui finalidade educacional, com foco no desenvolvimento técnico e profissional em backend e arquitetura de APIs REST.

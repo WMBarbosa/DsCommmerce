@@ -118,13 +118,13 @@ Além disso, são aplicados conceitos de **boas práticas**, **separação de re
 1. Clone o repositório:
 
 ```bash
-git clone https://github.com/WMBarbosa/DsCommmerce.git
+git clone https://github.com/WMBarbosa/E-Commmerce.git
 ```
 
 2. Acesse o diretório do projeto:
 
 ```bash
-cd DsCommmerce
+cd E-Commmerce
 ```
 
 3. Execute a aplicação:

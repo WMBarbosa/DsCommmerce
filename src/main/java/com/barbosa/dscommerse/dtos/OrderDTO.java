@@ -24,7 +24,4 @@ public class OrderDTO {
     @NotEmpty(message = "Order must have at least one item")
     private List<OrderItemDTO> items = new ArrayList<>();
 
-    public Double getTotal() {
-        return items.stream().mapToDouble(OrderItemDTO::getSubTotal).sum();
-    }
 }

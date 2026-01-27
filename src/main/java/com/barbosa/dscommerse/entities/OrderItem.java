@@ -45,12 +45,6 @@ public class OrderItem {
         id.setProduct(product);
     }
 
-    public Double getSubTotal() {
-        if (price == null || quantity == null) {
-            return 0.0;
-        }
-        return price * quantity;
-    }
 
     public void increaseQuantity(Integer amount) {
         if (amount == null || amount <= 0) {

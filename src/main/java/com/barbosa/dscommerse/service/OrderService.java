@@ -1,11 +1,8 @@
 package com.barbosa.dscommerse.service;
 
 import com.barbosa.dscommerse.dtos.OrderDTO;
-import com.barbosa.dscommerse.dtos.OrderItemDTO;
 import com.barbosa.dscommerse.entities.Order;
-import com.barbosa.dscommerse.entities.OrderItem;
 import com.barbosa.dscommerse.entities.Product;
-import com.barbosa.dscommerse.entities.User;
 import com.barbosa.dscommerse.entities.enums.OrderStatus;
 import com.barbosa.dscommerse.mappers.OrderMapper;
 import com.barbosa.dscommerse.repositories.OrderItemRepository;
@@ -14,7 +11,6 @@ import com.barbosa.dscommerse.repositories.ProductsRepository;
 import com.barbosa.dscommerse.repositories.UserRepository;
 import com.barbosa.dscommerse.service.serviceException.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -1,16 +1,16 @@
 package com.barbosa.dscommerse.controllers.controllerException;
 
-import com.barbosa.dscommerse.dtos.exceptionsDto.FieldMessage;
+import lombok.Getter;
 
 import java.time.Instant;
-import java.util.List;
 
+@Getter
 public class CustomError {
 
-    private Instant timestamp;
-    private Integer status;
-    private String error;
-    private String path;
+    private final Instant timestamp;
+    private final Integer status;
+    private final String error;
+    private final String path;
 
 
     public CustomError(Instant timestamp, Integer status, String error, String path) {
@@ -20,20 +20,5 @@ public class CustomError {
         this.path = path;
     }
 
-    public Instant getTimestamp() {
-        return timestamp;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public String getError() {
-        return error;
-    }
-
-    public String getPath() {
-        return path;
-    }
 }
 

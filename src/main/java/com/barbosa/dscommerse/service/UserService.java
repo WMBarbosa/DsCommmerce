@@ -78,6 +78,7 @@ public class UserService implements UserDetailsService {
                 .map(mapper::toDto);
     }
 
+    @Transactional(readOnly = true)
     public UserDTO findById(Long id) {
         return repository.findById(id)
                 .map(mapper::toDto)
